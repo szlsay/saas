@@ -1,8 +1,9 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login } from '@/api/user'
+import { login, getUserInfo, getUserDetailById } from '@/api/user'
 
 const state = {
-  token: getToken() // 设置token为共享
+  token: getToken(), // 设置token为共享
+  userInfo: {}
 }
 const mutations = {
   // 设置token的mutations
@@ -14,6 +15,13 @@ const mutations = {
   removeToken(state) {
     state.token = null // 设置vuex中的token为null
     removeToken() // 同步删除缓存中的token
+  },
+  setUserInfo(state, userInfo) {
+    state.userInfo = userInfo
+    // state.userInfo = { ...userInfo } // 浅拷贝 如果要去改属性里面的某一个值 可以用浅拷贝的方式
+  },
+  removeUserInfo(state) {
+    state.userInfo = {} // 重置为空对象
   }
 }
 const actions = {
@@ -30,6 +38,14 @@ const actions = {
     context.commit('setToken', result)
     console.log(result)
     // setTimeStamp() // 设置时间戳
+  },
+  // 获取用户资料
+  async getUserInfo(context) {
+    const result = await getUserInfo()
+    // 此时result里面已经有userId
+    const baseInfo = await getUserDetailById(result.userId) // 用户的基本信息
+    context.commit('setUserInfo', { ...result, ...baseInfo }) // 修改state中的用户资料
+    return result // 这里这句话 是伏笔 当下是用不上的 但是后期会用上 敬请期待
   }
 }
 export default {

@@ -11,10 +11,14 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
-
+import * as directives from '@/directives'
 import '@/icons' // icon
 import '@/permission' // permission control
-
+// directives是所有指令的一个集合
+Object.keys(directives).forEach(key => {
+  // key就是指令名称
+  Vue.directive(key, directives[key])
+})
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明

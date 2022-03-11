@@ -1,9 +1,9 @@
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth'
 import { login, getUserInfo, getUserDetailById } from '@/api/user'
-
+// import { resetRouter } from '@/router'
 const state = {
   token: getToken(), // 设置token为共享
-  userInfo: {}
+  userInfo: {} // 这里为什么不写null ?
 }
 const mutations = {
   // 设置token的mutations
@@ -35,9 +35,10 @@ const actions = {
     // })
     // await下方永远都是 reslove成功执行的逻辑
     const result = await login(data)
+    // result就是token
     context.commit('setToken', result)
-    console.log(result)
-    // setTimeStamp() // 设置时间戳
+
+    setTimeStamp() // 设置时间戳
   },
   // 获取用户资料
   async getUserInfo(context) {
@@ -46,6 +47,20 @@ const actions = {
     const baseInfo = await getUserDetailById(result.userId) // 用户的基本信息
     context.commit('setUserInfo', { ...result, ...baseInfo }) // 修改state中的用户资料
     return result // 这里这句话 是伏笔 当下是用不上的 但是后期会用上 敬请期待
+  },
+  // 登出action
+  lgout({ commit }) {
+    // 删除token
+    commit('removeToken')
+    // 删除用户资料
+    commit('removeUserInfo')
+    // 重置路由
+    // resetRouter()
+    // 清空路由模块下的路由信息
+    // Vuex子模块 调用子模块的mutation
+    // commit('permission/setRoutes', [], { root: true }) // commit默认是提交的当前子模块的mutations
+    // 如果加上 root: true 就表示commit此时是根级的commit
+    // this.$store.commit('permission/setRoutes')
   }
 }
 export default {

@@ -3,14 +3,14 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 // 引入多个模块的规则
-// import approvalsRouter from './modules/approvals'
-// import departmentsRouter from './modules/departments'
-// import employeesRouter from './modules/employees'
-// import permissionRouter from './modules/permission'
-// import attendancesRouter from './modules/attendances'
-// import salarysRouter from './modules/salarys'
-// import settingRouter from './modules/setting'
-// import socialRouter from './modules/social'
+import approvalsRouter from './modules/approvals'
+import departmentsRouter from './modules/departments'
+import employeesRouter from './modules/employees'
+import permissionRouter from './modules/permission'
+import attendancesRouter from './modules/attendances'
+import salarysRouter from './modules/salarys'
+import settingRouter from './modules/setting'
+import socialRouter from './modules/social'
 // import userRouter from './modules/user'
 /* Layout */
 import Layout from '@/layout'
@@ -82,20 +82,20 @@ export const constantRoutes = [
 ]
 // 动态路由的变量
 export const asyncRoutes = [
-  // approvalsRouter,
-  // departmentsRouter,
-  // employeesRouter,
-  // permissionRouter,
-  // attendancesRouter,
-  // salarysRouter,
-  // settingRouter,
-  // socialRouter
+  approvalsRouter,
+  departmentsRouter,
+  employeesRouter,
+  permissionRouter,
+  attendancesRouter,
+  salarysRouter,
+  settingRouter,
+  socialRouter
 ]
 const createRouter = () => new Router({
   mode: 'history', // require service support
   base: '/hrsaas/',
   scrollBehavior: () => ({ y: 0 }),
-  routes: [...constantRoutes] // 动态路由和静态路由的临时合并
+  routes: [...constantRoutes, ...asyncRoutes] // 动态路由和静态路由的临时合并
 })
 
 const router = createRouter()

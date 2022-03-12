@@ -12,6 +12,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 import * as directives from '@/directives'
+import * as filters from '@/filters'
+import Components from '@/components'
 import '@/icons' // icon
 import '@/permission' // permission control
 // directives是所有指令的一个集合
@@ -19,6 +21,10 @@ Object.keys(directives).forEach(key => {
   // key就是指令名称
   Vue.directive(key, directives[key])
 })
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+Vue.use(Components) // 注册自己的自定义组件
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明

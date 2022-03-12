@@ -14,6 +14,7 @@ import router from './router'
 import * as directives from '@/directives'
 import * as filters from '@/filters'
 import Components from '@/components'
+import VuePrint from 'vue-print-nb'
 import '@/icons' // icon
 import '@/permission' // permission control
 // directives是所有指令的一个集合
@@ -25,6 +26,7 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 Vue.use(Components) // 注册自己的自定义组件
+Vue.use(VuePrint) // 注册打印插件
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明

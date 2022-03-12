@@ -13,5 +13,18 @@ export default {
       title: '员工', // title有用处  表示当前模块的中文名称
       icon: 'people'
     }
+  }, {
+    path: 'detail/:id', // 动态路由参数 /:id id必须填  不填跳不过去 /:id? ?表示id可填可不填
+    component: () => import('@/views/employees/detail'),
+    hidden: true, // 在左侧菜单隐藏
+    meta: {
+      title: '员工详情'
+    }
+  }, {
+    path: 'print/:id', // 二级路由 写 /表示从根路径开始算  不写表示从 一级的路径开始算
+    component: () => import('@/views/employees/print'),
+    hidden: true // 在左侧菜隐藏
   }] // 二级路由组件
 }
+// /approvals => layout  =>
+// /approvals/index

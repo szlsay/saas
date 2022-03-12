@@ -103,7 +103,7 @@ export default {
    color: #fff;
    border-radius: 50%;
  }
- /deep/ .el-calendar__header {
+/deep/ .el-calendar__header {
    display: none
  }
 </style>

@@ -11,7 +11,7 @@
       <!-- 多语言切换 -->
       <!-- <lang class="right-menu-item" /> -->
       <!-- 放置全屏图标 -->
-      <!-- <screen-full class="right-menu-item" /> -->
+      <screen-full class="right-menu-item" />
       <!-- 放置一个更换主题插件 -->
       <!-- <theme-picker class="right-menu-item" /> -->
       <el-dropdown class="avatar-container" trigger="click">

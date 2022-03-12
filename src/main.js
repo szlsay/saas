@@ -15,6 +15,7 @@ import * as directives from '@/directives'
 import * as filters from '@/filters'
 import Components from '@/components'
 import VuePrint from 'vue-print-nb'
+import checkPermission from '@/mixin/checkPermission'
 import '@/icons' // icon
 import '@/permission' // permission control
 // directives是所有指令的一个集合
@@ -26,6 +27,7 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 Vue.use(Components) // 注册自己的自定义组件
+Vue.mixin(checkPermission) // 全局混入  会让所有的组件都自动拥有该混入组件的方法和属性
 Vue.use(VuePrint) // 注册打印插件
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })

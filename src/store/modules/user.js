@@ -1,6 +1,6 @@
 import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth'
 import { login, getUserInfo, getUserDetailById } from '@/api/user'
-// import { resetRouter } from '@/router'
+import { resetRouter } from '@/router'
 const state = {
   token: getToken(), // 设置token为共享
   userInfo: {} // 这里为什么不写null ?
@@ -55,10 +55,10 @@ const actions = {
     // 删除用户资料
     commit('removeUserInfo')
     // 重置路由
-    // resetRouter()
+    resetRouter()
     // 清空路由模块下的路由信息
     // Vuex子模块 调用子模块的mutation
-    // commit('permission/setRoutes', [], { root: true }) // commit默认是提交的当前子模块的mutations
+    commit('permission/setRoutes', [], { root: true }) // commit默认是提交的当前子模块的mutations
     // 如果加上 root: true 就表示commit此时是根级的commit
     // this.$store.commit('permission/setRoutes')
   }

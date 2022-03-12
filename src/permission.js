@@ -20,11 +20,11 @@ router.beforeEach(async(to, from, next) => {
       if (!store.getters.userId) {
         // 如果id不存在 意味着当前没有用户资料 就要去获取用户资料
         // vuex的action是一个promise
-        await store.dispatch('user/getUserInfo')
+        const { roles } = await store.dispatch('user/getUserInfo')
         // 此时已经获取完资料
-        // const routes = await store.dispatch('permission/filterRoutes', roles.menus)
+        const routes = await store.dispatch('permission/filterRoutes', roles.menus)
         // 此时得到的routes是当前用户的所拥有的的动态路由的权限
-        // router.addRoutes([...routes, { path: '*', redirect: '/404', hidden: true }]) // 将当前动态路由加到当前路由规则上
+        router.addRoutes([...routes, { path: '*', redirect: '/404', hidden: true }]) // 将当前动态路由加到当前路由规则上
         // 加await的意思是 强制等待获取完用户资料之后 才去放行  就能保证 用户进到页面时候 有资料
         // 添加完路由之后 不能用next()  要用next(to.path) 否则地址不能生效 这算是一个已知 的小缺陷
         // 执行完addRoutes 必须执行next(to.path) 不能执行 next() 这是一个已知的问题缺陷

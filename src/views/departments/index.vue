@@ -11,14 +11,13 @@
           <!-- 插槽  slot="a" 具名插槽-->
           <!-- 插槽   匿名插槽-->
           <!--  v-slot  先执行作用域插槽的取值 再传给tree-node-->
-          <!-- <template v-slot="{ data }">
+          <template v-slot="{ data }">
             <tree-tools :tree-node="data" @editDepts="editDepts" @addDepts="addDepts" @delDepts="getDepartments" />
-          </template> -->
-          <tree-tools slot-scope="{data}" :tree-node="data" @editDepts="editDepts" @addDepts="addDepts" @delDepts="getDepartments" />
+          </template>
         </el-tree>
       </el-card>
     </div>
-    <!-- 放置一个新增弹层组件 syn c修饰符 必须写 -->
+    <!-- 放置一个新增弹层组件 sync修饰符 必须写 -->
     <add-dept ref="addDept" :show-dialog.sync="showDialog" :tree-node="node" @addDepts="getDepartments" />
   </div>
 </template>

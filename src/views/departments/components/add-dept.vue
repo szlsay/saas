@@ -21,10 +21,8 @@
     <el-row slot="footer" type="flex" justify="center">
       <!--放置列 -->
       <el-col :span="8">
-        <!-- <el-button @click="btnCancel">{{ $t('table.cancel') }}</el-button>
-        <el-button type="primary" @click="btnOK">{{ $t('table.confirm') }}</el-button> -->
-        <el-button @click="btnCancel">取消</el-button>
-        <el-button type="primary" @click="btnOK">确定</el-button>
+        <el-button @click="btnCancel">{{ $t('table.cancel') }}</el-button>
+        <el-button type="primary" @click="btnOK">{{ $t('table.confirm') }}</el-button>
       </el-col>
     </el-row>
   </el-dialog>

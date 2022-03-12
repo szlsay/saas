@@ -13,7 +13,7 @@
           <el-button size="small" type="info" @click="exportMutiData">复杂表头excel导出</el-button>
 
           <el-button size="small" type="success" @click="$router.push('/import?type=user')">excel导入</el-button>
-          <el-button size="small" type="primary" :disabled="!checkPermission('add')" @click="showDialog = true">新增员工</el-button>
+          <el-button size="small" type="primary" @click="showDialog = true">新增员工</el-button>
         </template>
 
       </page-tools>

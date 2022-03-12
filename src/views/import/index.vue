@@ -13,8 +13,6 @@ export default {
   },
   methods: {
     async onSuccess({ header, results }) {
-      console.log('header:', header)
-      console.log('results:', results)
       if (this.type === 'user') {
         //  header是 头部表头的集合
       // results是实际的数据
@@ -37,7 +35,7 @@ export default {
           Object.keys(item).map(key => {
           // key是中文的key  userRelations[key]是英文的
           // 判断是否是日期
-            if (userRelations[key] === 'timeOfEntry' || userRelations[key] === 'correctionTime') {
+            if (userRelations[key] === 'timeOfEntry1' || userRelations[key] === 'correctionTime1') {
             //  说明此时到了要转化日期 只要日期类型才需要转化
             // java后端接口 要求 如果日期类型 必须传date类型
               userInfo[userRelations[key]] = new Date(this.formatDate(item[key], '/'))

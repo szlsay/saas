@@ -14,6 +14,33 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+let cdn = { css: [], js: [] }
+let externals = {}
+
+const isProd = process.env.NODE_ENV === 'production' // 表示当前环境是生产环境
+if (isProd) {
+  // 只有生产环境下 才做 排除打包 并且注入cdn文件
+  cdn = {
+    css: [
+      // element-ui css
+      'https://unpkg.com/element-ui/lib/theme-chalk/index.css' // 样式表
+    ],
+    js: [
+      // vue must at first!
+      'https://unpkg.com/vue@2.6.10/dist/vue.js', // vuejs
+      // element-ui js
+      'https://unpkg.com/element-ui/lib/index.js', // elementUI
+      'https://cdn.jsdelivr.net/npm/xlsx@0.16.9/dist/jszip.min.js',
+      'https://cdn.jsdelivr.net/npm/xlsx@0.16.9/dist/xlsx.full.min.js'
+    ]
+  }
+  externals = { // value为什么是全局变量  xlsx这个文件要用外链的方式引入
+    // xlsx外链引入没办法 作为局部模块化的包名
+    // key(要排除的打包的包的包名): value(要替代xlsx这个包的全局变量名称)
+    'vue': 'Vue',
+    'xlsx': 'XLSX', // 全局变量名也不是随便定义的  这是外链文件中定义的名字 只不过我们现在提前知道了
+    'element-ui': 'ELEMENT' }
+}
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -51,9 +78,19 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    // 排除打包的属性
+    externals: externals
   },
   chainWebpack(config) {
+    // 插入cdn变量
+    // args 就是原有注入模板中的变量
+    config.plugin('html').tap(args => {
+      // 注入点变量
+      // args[0] 相当于 html模板中 htmlWebpackplugin.options
+      args[0].cdn = cdn // 将cdn变量注入到html模板中
+      return args
+    })
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {
